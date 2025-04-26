@@ -31,6 +31,11 @@
             <h3>Map: {{ state['name'] }}</h3>
             <div id="state-map"></div>
         </section>
+
+        <!-- Download Report Button -->
+        <section>
+            <a href="{{ url_for('download_report', state_id=state['id']) }}" class="btn-download">Download PDF Report</a>
+        </section>
     </main>
 
     <footer>
