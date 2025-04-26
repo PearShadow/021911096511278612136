@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ state['name'] }} - Detailed Report</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <style>
+        #state-map {
+            height: 500px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>{{ state['name'] }} - Detailed Report</h1>
+    </header>
+
+    <main>
+        <section>
+            <h2>State Information</h2>
+            <p><strong>Tax Friendly Score:</strong> {{ state['tax_friendly_score'] }}</p>
+            <p><strong>Cost of Living:</strong> {{ state['cost_of_living'] }}</p>
+            <p><strong>Business Climate:</strong> {{ state['business_climate'] }}</p>
+            <p><strong>Housing Affordability:</strong> {{ state['housing_affordability'] }}</p>
+        </section>
+
+        <!-- Map Section -->
+        <section>
+            <h3>Map: {{ state['name'] }}</h3>
+            <div id="state-map"></div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Freedom Index</p>
+    </footer>
+
+    <!-- Leaflet.js Script -->
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+
+    <script>
+        // Coordinates for each state (example)
+        const stateCoordinates = {
+    "Alabama": [32.806671, -86.791130],
+    "Alaska": [61.370716, -149.493686],
+    "Arizona": [33.729759, -111.431221],
+    "Arkansas": [34.969704, -92.373123],
+    "California": [36.7783, -119.4179],
+    "Colorado": [39.550051, -105.782067],
+    "Connecticut": [41.603221, -73.087749],
+    "Delaware": [39.318523, -75.507141],
+    "Florida": [27.766279, -81.686783],
+    "Georgia": [33.040619, -83.643074],
+    "Hawaii": [21.094318, -157.498337],
+    "Idaho": [44.299782, -114.742041],
+    "Illinois": [40.373629, -88.539269],
+    "Indiana": [39.849426, -86.258278],
+    "Iowa": [41.125370, -98.268082],
+    "Kansas": [38.526600, -96.726486],
+    "Kentucky": [37.668140, -84.670067],
+    "Louisiana": [31.169546, -91.867805],
+    "Maine": [44.693947, -69.381927],
+    "Maryland": [39.063946, -76.802101],
+    "Massachusetts": [42.230171, -71.530106],
+    "Michigan": [42.326515, -83.636482],
+    "Minnesota": [45.694454, -93.900192],
+    "Mississippi": [32.741646, -89.678696],
+    "Missouri": [36.716134, -93.227881],
+    "Montana": [46.924601, -110.454353],
+    "Nebraska": [41.125370, -98.268082],
+    "Nevada": [38.313515, -117.055374],
+    "New Hampshire": [43.452492, -71.563896],
+    "New Jersey": [40.298904, -74.521011],
+    "New Mexico": [34.840515, -106.248482],
+    "New York": [40.712776, -74.005974],
+    "North Carolina": [35.630066, -79.806419],
+    "North Dakota": [47.528912, -99.784012],
+    "Ohio": [40.388783, -82.764915],
+    "Oklahoma": [35.565342, -96.928917],
+    "Oregon": [44.299782, -120.109297],
+    "Pennsylvania": [40.590752, -77.209755],
+    "Rhode Island": [41.680893, -71.511780],
+    "South Carolina": [33.856892, -80.945007],
+    "South Dakota": [44.299782, -99.438828],
+    "Tennessee": [35.747845, -86.692345],
+    "Texas": [31.9686, -99.9018],
+    "Utah": [40.150032, -111.862434],
+    "Vermont": [44.045876, -72.710686],
+    "Virginia": [37.769337, -78.169968],
+    "Washington": [47.400902, -121.490494],
+    "West Virginia": [38.491226, -80.954644],
+    "Wisconsin": [44.268543, -89.616508],
+    "Wyoming": [42.755966, -107.302490]
+};
+
+
+        // Use the coordinates of the state
+        const stateName = "{{ state['name'] }}";
+        const coordinates = stateCoordinates[stateName] || [37.8, -96];  // Default to U.S. center if no coordinates
+
+        // Initialize the map centered on the state's coordinates
+        const map = L.map('state-map').setView(coordinates, 5);  // Zoom level 5 for the state view
+
+        // Add OpenStreetMap tile layer to the map
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+
+        // Add a marker (pin) to the map for the state's location
+        L.marker(coordinates).addTo(map)
+            .bindPopup(`<b>${stateName}</b><br>Tax Friendly Score: ${state['tax_friendly_score']}`)
+            .openPopup();
+    </script>
+</body>
+</html>

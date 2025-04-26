@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Freedom Index Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <style>
+        /* Adding custom map styles to make it fill the screen */
+        #us-map {
+            height: 500px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Freedom Index Dashboard</h1>
+        <nav>
+            <ul>
+                <li><a href="/states">Search States</a></li>
+                <li><a href="/quiz">Where Should I Move?</a></li>
+                <li><a href="/comparison">Comparison Tool</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="map-section">
+            <h2>Interactive U.S. Map</h2>
+            <!-- Placeholder for the map -->
+            <div id="us-map"></div>
+        </section>
+
+        <section id="filters">
+            <h3>Search for States</h3>
+            <form action="/states" method="get">
+                <input type="text" name="query" placeholder="Search by state name">
+                <button type="submit">Search</button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Freedom Index</p>
+    </footer>
+
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
